@@ -1,4 +1,4 @@
-import { Navbar } from "../ui";
+import { Navbar, SideMenu } from "../ui";
 
 export const ShopLayout = ({ children }: { children: React.ReactNode }) => {
  return (
@@ -6,6 +6,8 @@ export const ShopLayout = ({ children }: { children: React.ReactNode }) => {
    <nav>
     <Navbar />
    </nav>
+
+   <SideMenu />
 
    <main
     style={{ margin: "80px auto", maxWidth: "1440px", padding: "0px 30px" }}

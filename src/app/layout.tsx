@@ -1,8 +1,8 @@
-import "./globals.css";
 import type { Metadata } from "next";
 import Providers from "./providers";
 import { Roboto } from "next/font/google";
 import { ShopLayout } from "@/components/layouts/ShopLayout";
+import "../../styles/globals.css";
 
 export const metadata: Metadata = {
  title: "Tesla-shop",
