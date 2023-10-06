@@ -1,4 +1,4 @@
-import { CartList } from "@/components/cart";
+import { CartList, OrderSummary } from "@/components/cart";
 import {
  Box,
  Button,
@@ -28,7 +28,8 @@ const CartPage = () => {
 
    <Grid container>
     <Grid item xs={12} sm={7}>
-     <CartList />
+     {/*   SI ENVIO LA PROPIEDAD EDITABLE TENGO LAS OPCIONES DE EDITAR EN MI LISTA DE ITEMS */}
+     <CartList editable />
     </Grid>
 
     <Grid item xs={12} sm={5}>
@@ -38,6 +39,7 @@ const CartPage = () => {
        <Divider sx={{ my: 1 }} />
 
        {/* order summary */}
+       <OrderSummary />
 
        <Box sx={{ mt: 3 }}>
         <Button color='secondary' className='circular-btn' fullWidth>

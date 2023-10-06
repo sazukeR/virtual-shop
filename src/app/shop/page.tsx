@@ -1,3 +1,5 @@
+"use client";
+
 import {
  Card,
  CardActionArea,
@@ -5,10 +7,10 @@ import {
  Grid,
  Typography,
 } from "@mui/material";
-import { initialData } from "../../database/products";
+import { initialData } from "../../../database/products";
 import { ProductList } from "@/components/products";
 
-export default function Home() {
+export default function ShopPage() {
  return (
   <>
    <Typography variant='h1' component='h1'>
