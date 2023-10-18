@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import Providers from "./providers";
 import { Roboto } from "next/font/google";
 

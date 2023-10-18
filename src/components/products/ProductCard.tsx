@@ -1,5 +1,7 @@
 "use client";
 
+import { FC, useMemo, useState } from "react";
+
 import {
  Box,
  Card,
@@ -10,7 +12,7 @@ import {
  Typography,
 } from "@mui/material";
 import { IProduct } from "../../../interfaces";
-import { FC, useMemo, useState } from "react";
+
 import NextLink from "next/link";
 
 interface Props {

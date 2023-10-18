@@ -1,6 +1,7 @@
-import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
-import { Metadata } from "next";
 import NextLink from "next/link";
+import { Metadata } from "next";
+
+import { Box, Button, Grid, Link, TextField, Typography } from "@mui/material";
 
 export const metadata: Metadata = {
  title: "Ingresar",

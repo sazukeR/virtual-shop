@@ -1,7 +1,8 @@
-import { Box, Button, Chip, Grid, Typography } from "@mui/material";
-import { initialData } from "../../../../database/products";
 import { Metadata } from "next";
 
+import { initialData } from "../../../../database/products";
+
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { ItemCounter } from "@/components/ui";
 import { ProductSlidesShow, SizeSelector } from "@/components/products";
 

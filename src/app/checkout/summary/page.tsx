@@ -1,3 +1,7 @@
+import NextLink from "next/link";
+
+import { Metadata } from "next";
+
 import { CartList, OrderSummary } from "@/components/cart";
 import {
  Box,
@@ -9,8 +13,6 @@ import {
  Link,
  Typography,
 } from "@mui/material";
-import { Metadata } from "next";
-import NextLink from "next/link";
 
 export const metadata: Metadata = {
  title: "Resumen de orden",

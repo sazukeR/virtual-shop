@@ -1,14 +1,18 @@
-"use client";
+import { Metadata } from "next";
 
-import {
- Card,
- CardActionArea,
- CardMedia,
- Grid,
- Typography,
-} from "@mui/material";
 import { initialData } from "../../../database/products";
 import { ProductList } from "@/components/products";
+
+import { Typography } from "@mui/material";
+
+export const metadata: Metadata = {
+ title: "Tesla-shop",
+ description: "Encuentra los mejores productos de tesla-shop",
+ openGraph: {
+  title: "Tesla-shop",
+  description: "Encuentra los mejores productos de tesla-shop",
+ },
+};
 
 export default function ShopPage() {
  return (

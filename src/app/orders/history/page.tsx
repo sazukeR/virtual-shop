@@ -1,5 +1,8 @@
 "use client";
 
+import NextLink from "next/link";
+import { Metadata } from "next";
+
 import { Typography, Grid, Chip, Link } from "@mui/material";
 import {
  DataGrid,
@@ -7,9 +10,6 @@ import {
  GridRenderCellParams,
  GridRowsProp,
 } from "@mui/x-data-grid";
-import { Metadata } from "next";
-import NextLink from "next/link";
-import { useParams } from "next/navigation";
 
 // PARA REALIZAR ESTA PARTE, TUVIMOS QUE DESCARGAR OTROS COMPONENTES DE LA LIBRERIA MATERIAL yarn add @mui/x-data-grid
 

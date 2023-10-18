@@ -1,5 +1,11 @@
 "use client";
 import { FC } from "react";
+import NextLink from "next/link";
+
+import { initialData } from "../../../database/products";
+
+import { ItemCounter } from "../ui";
+
 import {
  Box,
  Button,
@@ -9,10 +15,6 @@ import {
  Link,
  Typography,
 } from "@mui/material";
-
-import { initialData } from "../../../database/products";
-import NextLink from "next/link";
-import { ItemCounter } from "../ui";
 
 const productsInCart = [
  initialData.products[0],

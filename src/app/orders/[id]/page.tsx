@@ -1,8 +1,9 @@
+import NextLink from "next/link";
+
+import { Metadata } from "next";
+
 import { CartList, OrderSummary } from "@/components/cart";
-import {
- CreditCardOffOutlined,
- CreditScoreOutlined,
-} from "@mui/icons-material";
+import { CreditScoreOutlined } from "@mui/icons-material";
 import {
  Box,
  Card,
@@ -13,8 +14,6 @@ import {
  Link,
  Typography,
 } from "@mui/material";
-import { Metadata } from "next";
-import NextLink from "next/link";
 
 export const metadata: Metadata = {
  title: "Resumen de la orden - 132434",

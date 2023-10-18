@@ -5,5 +5,5 @@ export default function ShoppLayout({
 }: {
  children: React.ReactNode;
 }) {
- return <ShopLayout children={children} />;
+ return <ShopLayout>{children}</ShopLayout>;
 }
