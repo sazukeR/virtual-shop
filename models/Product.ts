@@ -39,6 +39,11 @@ const productSchema = new Schema({
 
 
 // TODO: crear indice de mongo
+productSchema.index({title: "text", tags: "text"});
+// LUEGO DE CREAR ESTE INDICE DEBEMOS BAJAR Y SUBIR EL SERVIDOR PARA TOMAR LOS CAMBIOS
+
+
+
 
 
 const Product:  Model<IProduct> = mongoose.models.Product || model('Product', productSchema)
