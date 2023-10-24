@@ -19,6 +19,7 @@
     "react": "latest",
     "react-dom": "latest",
     "react-slideshow-image": "^4.2.1",
+    "swr": "^2.2.4",
     "webidl-conversions": "^7.0.0"
   },
   "devDependencies": {

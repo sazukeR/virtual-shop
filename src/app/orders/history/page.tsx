@@ -1,7 +1,6 @@
 "use client";
 
 import NextLink from "next/link";
-import { Metadata } from "next";
 
 import { Typography, Grid, Chip, Link } from "@mui/material";
 import {
@@ -12,15 +11,6 @@ import {
 } from "@mui/x-data-grid";
 
 // PARA REALIZAR ESTA PARTE, TUVIMOS QUE DESCARGAR OTROS COMPONENTES DE LA LIBRERIA MATERIAL yarn add @mui/x-data-grid
-
-const metadata: Metadata = {
- title: "Historial de ordenes",
- description: "Historial de ordenes del cliente",
- openGraph: {
-  title: "Historial de ordenes",
-  description: "Historial de ordenes del cliente",
- },
-};
 
 const columns: GridColDef[] = [
  { field: "id", headerName: "ID", width: 100 },

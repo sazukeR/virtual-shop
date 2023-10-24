@@ -37,4 +37,4 @@ export async function GET(request: Request, {params}: { params: { q: string } })
         },{status: 400});
 
     }
-}
+} 
