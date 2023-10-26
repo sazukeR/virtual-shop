@@ -1,42 +1,39 @@
-"use client";
-
-import { Metadata, NextPage } from "next";
-
 //import { initialData } from "../../../../database/products";
 
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { ItemCounter } from "@/components/ui";
 import { ProductSlidesShow, SizeSelector } from "@/components/products";
 
-import { IProduct } from "../../../../interfaces";
-import { usePathname } from "next/navigation";
-import useProduct from "../../../../hooks/useProduct";
+import { useProduct } from "../../../../hooks";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+
+import type { Metadata } from "next";
 
 // const product = initialData.products[0]; ASI NOS TRAIAMOS UN PRODUCTO ANTERIORMENTE PARA TENER ALGO QUE MOSTRAR MIENTRAS REALIZABAMOS LAS PAGES
 
-/* export const metadata: Metadata = {
- title: product.title,
- description: product.description,
- openGraph: {
-  title: product.title,
-  description: product.description,
- },
-}; */
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+ return {
+  title: params.slug,
+  description: "Historial de ordenes del cliente",
+  openGraph: {
+   title: params.slug,
+   description: "Historial de ordenes del cliente",
+  },
+ };
+}
 
-const ProductPage = async () => {
- const pathname = usePathname();
+const ProductPage = async ({ params }: Params) => {
+ console.log(params.slug);
 
- const lastPath = "/" + pathname.split("/").pop();
+ const lastPath = "/" + params.slug;
 
  console.log(lastPath);
  const product = await useProduct(lastPath);
 
- console.log(product);
-
  return (
   <Grid container spacing={3}>
    <Grid item xs={12} sm={7}>
-    {product && <ProductSlidesShow images={product.images} />}
+    <ProductSlidesShow images={product.images} />
    </Grid>
 
    <Grid item xs={12} sm={5}>

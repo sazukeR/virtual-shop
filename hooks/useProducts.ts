@@ -10,9 +10,8 @@ export const useProducts = (url: string, config: SWRConfiguration = {}) => {
 // fetch(...args).then((res) => res.json());
     const { data, error } = useSWR<IProduct[]>(`/api${url}`, config);
 
-    console.log(data)
+
     return {
-        product: data || [],
         products: data || [] ,
         isLoading: !error && !data,
         isError: error

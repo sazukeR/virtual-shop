@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UiContext } from "@/context";
 import {
  Box,
@@ -32,6 +32,17 @@ export const SideMenu = () => {
  const router = useRouter();
 
  const { isMenuOpen, toggleSideMenu } = useContext(UiContext);
+
+ const [searchTerm, setSearchTerm] = useState("");
+
+ // CUANDO UNA PERSONA HAGA ENTER O PRESIONE LA LUPA DESPUES DE HABER ESCRITO ALGO EN LA CAJA DE TEXTO, ENTONCES TENGO QUE NAVEGAR HACIA UNA NUEVA PANTALLA MANDANDO ESE ARGUMENTO DE BUSQUEDA.
+
+ const onSearchTerm = () => {
+  if (searchTerm.trim().length === 0) return;
+
+  navigateTo(`/search/${searchTerm}`);
+ };
+
  const navigateTo = (url: string) => {
   toggleSideMenu();
   router.push(url);
@@ -48,11 +59,15 @@ export const SideMenu = () => {
     <List>
      <ListItem>
       <Input
+       autoFocus
+       value={searchTerm}
+       onChange={(e) => setSearchTerm(e.target.value)}
+       onKeyPress={(e) => (e.key === "Enter" ? onSearchTerm() : null)}
        type='text'
        placeholder='Buscar...'
        endAdornment={
         <InputAdornment position='end'>
-         <IconButton aria-label='toggle password visibility'>
+         <IconButton onClick={onSearchTerm}>
           <SearchOutlined />
          </IconButton>
         </InputAdornment>

@@ -1,5 +1,5 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UiContext } from "@/context";
 import NextLink from "next/link";
 import {
@@ -8,19 +8,35 @@ import {
  Box,
  Button,
  IconButton,
+ Input,
+ InputAdornment,
  Link,
  Toolbar,
  Typography,
 } from "@mui/material";
-import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
-import { usePathname } from "next/navigation";
+import {
+ ClearOutlined,
+ SearchOutlined,
+ ShoppingCartOutlined,
+} from "@mui/icons-material";
+import { usePathname, useRouter } from "next/navigation";
 
 export const Navbar = () => {
  const pathname = usePathname();
+ const router = useRouter();
 
  //console.log(pathname);
 
  const { toggleSideMenu } = useContext(UiContext);
+
+ const [searchTerm, setSearchTerm] = useState("");
+ const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+ const onSearchTerm = () => {
+  if (searchTerm.trim().length === 0) return;
+
+  router.push(`/search/${searchTerm}`);
+ };
 
  return (
   <AppBar>
@@ -33,7 +49,10 @@ export const Navbar = () => {
     </NextLink>
     <Box flex={1} />
     {/* este box me tomara todo el espacio disponible en la barra de navegacion, separando los botones de un lado y el link teslo de otro lado como un space-between */}
-    <Box sx={{ display: { xs: "none", sm: "block" } }}>
+    <Box
+     sx={{ display: isSearchVisible ? "none" : { xs: "none", sm: "block" } }}
+     className='fadeIn'
+    >
      {/* ESTE ES UN RENDERIZADO CONDICIONAL MUY UTIL DE MATERIALUI, DECIMOS QUE EN PANTALLAS PEQUENAS EL BOX NO SE MOSTRARA, POR LO TANTO ACULTARA LAS OPCIONES DEL MENU Y EL PANTALLAS MEDIANAS EN ADELANTE SE MUESTRA */}
      <NextLink href='/category/men' passHref legacyBehavior>
       <Link>
@@ -59,7 +78,40 @@ export const Navbar = () => {
     </Box>
     <Box flex={1} />
 
-    <IconButton>
+    {/* PANTALLAS GRANDES */}
+    {isSearchVisible ? (
+     <Input
+      sx={{ display: { xs: "none", sm: "flex" } }}
+      className='fadeIn'
+      autoFocus
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      onKeyPress={(e) => (e.key === "Enter" ? onSearchTerm() : null)}
+      type='text'
+      placeholder='Buscar...'
+      endAdornment={
+       <InputAdornment position='end'>
+        <IconButton onClick={() => setIsSearchVisible(false)}>
+         <ClearOutlined />
+        </IconButton>
+       </InputAdornment>
+      }
+     />
+    ) : (
+     <IconButton
+      onClick={() => setIsSearchVisible(true)}
+      className='fadeIn'
+      sx={{ display: { xs: "none", sm: "flex" } }}
+     >
+      <SearchOutlined />
+     </IconButton>
+    )}
+
+    {/* PANTALLAS PEQUENAS */}
+    <IconButton
+     sx={{ display: { xs: "flex", sm: "none" } }}
+     onClick={toggleSideMenu}
+    >
      <SearchOutlined />
     </IconButton>
 

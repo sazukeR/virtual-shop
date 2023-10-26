@@ -39,3 +39,40 @@ export const getAllProductSlugs = async(): Promise<ProductSlug[]> => {
     return slugs
 
 }
+
+
+export const getProductsByTerm = async(term: string): Promise<IProduct[]> => {
+
+
+    term = term.toString().toLowerCase(); // TODOS LOS TAGS QUE MANEJAMOS ESTAN EN MINUSCULAS
+
+
+    await db.connect();
+    const products = await Product.find({
+        // PARA ESTA CONDICION NECESITO CREAR UN INDICE QUE ME AYUDE A CONECTAR DOS CAMPOS (EN EL MODELO DE PRODUCTOS)
+
+        $text: { $search: term }
+
+    })
+    .select("title images price inStock slug -_id")
+    .lean();
+    await db.disconnect();
+
+    return products;
+
+}
+
+
+export const getAllProducts = async(): Promise<IProduct[]> => {
+
+    await db.connect();
+    const products = await Product.find()
+    .select('title images price inStock slug -_id')
+    .lean() 
+
+    await db.disconnect();
+
+
+    return products;
+
+}

@@ -1,7 +1,5 @@
 
-
-
- const useProduct = async(path:  any) => {
+ export const useProduct = async(path:  any) => {
 
     
        
@@ -11,8 +9,11 @@
   
         const data = await res.json();
       
-    console.log(data)
+   
        
        return data
 }
-export default useProduct;
+
+
+
+
