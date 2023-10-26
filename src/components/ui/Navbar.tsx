@@ -1,5 +1,6 @@
 "use client";
-
+import { useContext } from "react";
+import { UiContext } from "@/context";
 import NextLink from "next/link";
 import {
  AppBar,
@@ -12,8 +13,15 @@ import {
  Typography,
 } from "@mui/material";
 import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
+import { usePathname } from "next/navigation";
 
 export const Navbar = () => {
+ const pathname = usePathname();
+
+ //console.log(pathname);
+
+ const { toggleSideMenu } = useContext(UiContext);
+
  return (
   <AppBar>
    <Toolbar>
@@ -29,17 +37,23 @@ export const Navbar = () => {
      {/* ESTE ES UN RENDERIZADO CONDICIONAL MUY UTIL DE MATERIALUI, DECIMOS QUE EN PANTALLAS PEQUENAS EL BOX NO SE MOSTRARA, POR LO TANTO ACULTARA LAS OPCIONES DEL MENU Y EL PANTALLAS MEDIANAS EN ADELANTE SE MUESTRA */}
      <NextLink href='/category/men' passHref legacyBehavior>
       <Link>
-       <Button>Hombres</Button>
+       <Button color={pathname === "/category/men" ? "primary" : "info"}>
+        Hombres
+       </Button>
       </Link>
      </NextLink>
      <NextLink href='/category/women' passHref legacyBehavior>
       <Link>
-       <Button>Mujeres</Button>
+       <Button color={pathname === "/category/women" ? "primary" : "info"}>
+        Mujeres
+       </Button>
       </Link>
      </NextLink>
      <NextLink href='/category/kid' passHref legacyBehavior>
       <Link>
-       <Button>Ninos</Button>
+       <Button color={pathname === "/category/kid" ? "primary" : "info"}>
+        Ninos
+       </Button>
       </Link>
      </NextLink>
     </Box>
@@ -59,7 +73,7 @@ export const Navbar = () => {
      </Link>
     </NextLink>
 
-    <Button>Menu</Button>
+    <Button onClick={toggleSideMenu}>Menu</Button>
    </Toolbar>
   </AppBar>
  );
