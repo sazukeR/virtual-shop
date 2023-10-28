@@ -1,15 +1,22 @@
 //import { initialData } from "../../../../database/products";
-
-import { Box, Button, Grid, Typography } from "@mui/material";
+//import { useState } from "react";
+import type { Metadata } from "next";
+import { Box, Button, Chip, Grid, Typography } from "@mui/material";
 import { ItemCounter } from "@/components/ui";
 import { ProductSlidesShow, SizeSelector } from "@/components/products";
 
 import { useProduct } from "../../../../hooks";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+//import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
-import type { Metadata } from "next";
+import { ICartProduct } from "../../../../interfaces";
 
 // const product = initialData.products[0]; ASI NOS TRAIAMOS UN PRODUCTO ANTERIORMENTE PARA TENER ALGO QUE MOSTRAR MIENTRAS REALIZABAMOS LAS PAGES
+
+type Params = {
+ params: {
+  slug: string;
+ };
+};
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
  return {
@@ -23,12 +30,21 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 }
 
 const ProductPage = async ({ params }: Params) => {
- console.log(params.slug);
-
  const lastPath = "/" + params.slug;
 
  console.log(lastPath);
  const product = await useProduct(lastPath);
+
+ /*  const [temCardProduct, setTemCardProduct] = useState<ICartProduct>({
+  _id: product._id,
+  image: product.images[0],
+  price: product.price,
+  size: undefined,
+  slug: product.slug,
+  title: product.title,
+  gender: product.gender,
+  quantity: 1,
+ }); */
 
  return (
   <Grid container spacing={3}>
@@ -56,11 +72,13 @@ const ProductPage = async ({ params }: Params) => {
       />
      </Box>
 
-     <Button color='secondary' className='circular-btn'>
-      Agregar al carrito
-     </Button>
-
-     {/*  <Chip label='No hay disponibles' color='error' variant='outlined' /> */}
+     {/* REPARAR   {product.inStock > 0 ? (
+      <Button color='secondary' className='circular-btn'>
+       {temCardProduct.size ? "Agregar al carrito" : "Seleccione una talla"}
+      </Button>
+     ) : (
+      <Chip label='No hay disponibles' color='error' variant='outlined' />
+     )} */}
 
      <Box sx={{ mt: 3 }}>
       <Typography variant='subtitle1'>Descripcion</Typography>

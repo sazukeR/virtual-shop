@@ -3,8 +3,14 @@ import { ProductList } from "@/components/products";
 // import { initialData } from "../../database/products"; ESTA EXPORTACION LA USAMOS PARA TRAER LOS PRODUCTOS DEL ARREGLO QUE CREAMOS MIENTRAS SE REALIZABA EL FRONT
 import { Box, Typography } from "@mui/material";
 
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+// import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { dbProducts } from "../../../../database";
+
+type Params = {
+ params: {
+  query: string;
+ };
+};
 
 export default async function SearchPage({ params }: Params) {
  // HACEMOS LA CONSULTA DIRECTAMENTE A LA BASE DE DATOS, YA QUE ESTAMOS EN UN COMPONENTE SERVIDOR

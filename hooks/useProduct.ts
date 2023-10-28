@@ -1,5 +1,6 @@
+import { IProduct } from "../interfaces";
 
- export const useProduct = async(path:  any) => {
+ export const useProduct = async(path:  string):Promise<IProduct> => {
 
     
        
