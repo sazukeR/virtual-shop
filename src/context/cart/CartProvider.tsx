@@ -1,4 +1,5 @@
-import { FC, ReactNode, useReducer } from "react";
+import { FC, ReactNode, useEffect, useReducer } from "react";
+import Cookie from "js-cookie"; // PODRIA DAR UN ERROR YA QUE ESTA DEPENDENCIA NO VIENE CON EL TYPESCRIPTT, PARA ESTO EJECUTAMOS yarn add -D @types/js-cookie
 import { ICartProduct } from "../../../interfaces";
 import { CartContext, cartReducer } from "./";
 
@@ -16,6 +17,44 @@ const CART_INITIAL_STATE: CartState = {
 
 export const CartProvider: FC<Props> = ({ children }) => {
  const [state, dispatch] = useReducer(cartReducer, CART_INITIAL_STATE);
+
+ // AL RECARGAR EL NAVEGADOR, SE VA A TOMAR LA INFORMACION DE LAS COOKIES PARA RELLENAR EL ESTADO DEL CARRITO DE COMPRE, PERSITENCIA DE DATOS
+ useEffect(() => {
+  /*   const coookieProducts = Cookie.get("cart")
+   ? JSON.parse(Cookie.get("cart")!) // EL SIGNO DE ADMIRACION ES PARA INDICAR QUE YA ESTOY HACIENDO LA EVALUACION PORQUE ME ESTA MARCANDO QUE PODRIA SER UNDEFINED
+   : [];
+
+  dispatch({
+   type: "[CART] - LoadCart from cookies | storage",
+   payload: coookieProducts,
+  }); */
+
+  // ES OPCIONAL, PERO TAMBIEN PODRIAMOS HACERLO DE LA SIGUIENTE FORMA CON TRYCATCH
+  // ESTO ES EN CASO DE QUE NO LOGRARA PARCEAR LA COOKIER POR ALGUNA RAZON, PODRIA SER QUE ALGUIEN LA MANIPULO EN EL NAVEGADOR
+  try {
+   const coookieProducts = Cookie.get("cart")
+    ? JSON.parse(Cookie.get("cart")!) // EL SIGNO DE ADMIRACION ES PARA INDICAR QUE YA ESTOY HACIENDO LA EVALUACION PORQUE ME ESTA MARCANDO QUE PODRIA SER UNDEFINED
+    : [];
+
+   dispatch({
+    type: "[CART] - LoadCart from cookies | storage",
+    payload: coookieProducts,
+   });
+  } catch (error) {
+   dispatch({
+    type: "[CART] - LoadCart from cookies | storage",
+    payload: [],
+   });
+  }
+ }, []);
+
+ // DE ESTA FORMA GUARDAMOS EN LAS COOKIES LOS ITEMS DEL CARRITO CADA VEZ QUE HAY UNA ACTUALIZACION EN EL ESTADO DEL CARRITO (STATE.CART)
+ useEffect(() => {
+  // sobreescribia lo grabado con un arreglo vacio entonces mejor simplemente evitarlo si el arreglo esta vacio, estariamos grabando una cookie sin nada de informacion
+  if (state.cart.length === 0) return;
+
+  Cookie.set("cart", JSON.stringify(state.cart));
+ }, [state.cart]);
 
  const addProductToCart = (product: ICartProduct) => {
   // validacion para agregar al carrito
