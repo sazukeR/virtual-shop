@@ -1,3 +1,6 @@
+import bcrypt from 'bcryptjs'; // INSTALAMOS yarn add bcryptjs PARA HACER ENCRIPTACIONES DE CLAVE, INCLUSO DE CLAVES EN USUARIOS DE PRUEBA, TAMBIEN NECESITAMOS LOS ARCHIVOS DE DEFINICION DE TYPESCRYPT PARA QUE NO NOS DE UN ERROR LA IMPORTACION yarn add @types/bcryptjs
+
+
 interface SeedProduct {
     description: string;
     images: string[];
@@ -9,19 +12,44 @@ interface SeedProduct {
     title: string;
     type: ValidTypes;
     gender: 'men'|'women'|'kid'|'unisex';
+    
 }
+
+interface SeedUser {
+    name: string;
+    email: string;
+    password: string;
+    role: "admin" | "client";
+}
+
 
 type ValidSizes = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
 type ValidTypes = 'shirts'|'pants'|'hoodies'|'hats';
 
+
 interface SeedData {
     products: SeedProduct[],
+    users: SeedUser[],
 }
 
 
 
 
 export const initialData: SeedData = {
+    users: [
+        {
+            name: "Reinaldo Conntreras",
+            email: "reinaldo@gmail.com",
+            password: bcrypt.hashSync("123456"),
+            role: "admin",
+        },
+        {
+            name: "Fernando Herrera",
+            email: "fernando@gmail.com",
+            password: bcrypt.hashSync("123456"),
+            role: "client",
+        },
+    ],
     products: [
         {
             description: "Introducing the Tesla Chill Collection. The Men’s Chill Crew Neck Sweatshirt has a premium, heavyweight exterior and soft fleece interior for comfort in any season. The sweatshirt features a subtle thermoplastic polyurethane T logo on the chest and a Tesla wordmark below the back collar. Made from 60% cotton and 40% recycled polyester.",

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { initialData } from "../../../database/products";
+import { initialData } from "../../../database/seed-data";
 import { ProductList } from "@/components/products";
 
 import { Typography } from "@mui/material";

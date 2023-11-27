@@ -4,4 +4,4 @@ export * from "./constans";
 
 
 // base de datos de prueba
-export * as seedDatabase from './products';
+export * as seedDatabase from './seed-data';

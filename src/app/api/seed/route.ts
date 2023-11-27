@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { db, seedDatabase } from '../../../../database'
-import { Product } from '../../../../models'
+import { Product, User } from '../../../../models'
 
 /* type Data = {
     message: string
@@ -17,6 +17,11 @@ export async function GET() {
     }
 
     await db.connect()
+
+
+    await User.deleteMany();
+
+    await User.insertMany(seedDatabase.initialData.users)
 
     await Product.deleteMany() //POR SI ACASO HICE ALGUNA MODIFICACION PURGAR LA BASE DE DATOS SOLO EN LA COLECCION DE PRODUCTOS
 

@@ -31,7 +31,6 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 const ProductPage = async ({ params }: Params) => {
  const lastPath = "/" + params.slug;
 
- console.log(lastPath);
  const product = await useProduct(lastPath);
 
  return (

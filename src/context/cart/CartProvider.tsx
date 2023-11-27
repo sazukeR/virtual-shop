@@ -5,6 +5,10 @@ import { CartContext, cartReducer } from "./";
 
 export interface CartState {
  cart: ICartProduct[];
+ numberOfItems: number;
+ subTotal: number;
+ tax: number;
+ total: number;
 }
 
 interface Props {
@@ -13,6 +17,10 @@ interface Props {
 
 const CART_INITIAL_STATE: CartState = {
  cart: [],
+ numberOfItems: 0,
+ subTotal: 0,
+ tax: 0,
+ total: 0,
 };
 
 export const CartProvider: FC<Props> = ({ children }) => {
@@ -56,6 +64,28 @@ export const CartProvider: FC<Props> = ({ children }) => {
   Cookie.set("cart", JSON.stringify(state.cart));
  }, [state.cart]);
 
+ useEffect(() => {
+  const numberOfItems = state.cart.reduce(
+   (prev, current) => current.quantity + prev,
+   0
+  );
+  const subTotal = state.cart.reduce(
+   (prev, current) => current.quantity * current.price + prev,
+   0
+  );
+
+  const taxRate = Number(process.env.NEXT_PUBLIC_TAX_RATE || 0); // NUMBER PORQUE TODAS LAS ENV SON STRINGS Y NECESITAMOS UN NUMERO, Y 0 POR SI DA ERROR LA ENV MANEJAR EL ERROR
+
+  const orderSummary = {
+   numberOfItems,
+   subTotal,
+   tax: subTotal * taxRate,
+   total: subTotal * (taxRate + 1),
+  };
+
+  dispatch({ type: "[CART] - Update order summary", payload: orderSummary });
+ }, [state.cart]);
+
  const addProductToCart = (product: ICartProduct) => {
   // validacion para agregar al carrito
   const productInCart = state.cart.some((p) => p._id === product._id);
@@ -89,6 +119,14 @@ export const CartProvider: FC<Props> = ({ children }) => {
    payload: [...updateProducts],
   });
  };
+ // DEFINIMOS ESTA FUNCION QUE NOS PERMITIRA ACTUALIZAR LA CANTIDAD DE UN PRODUCTO QUE YA ESTA EN LA LISTA DEL CARRITO
+ const updateCartQuantity = (product: ICartProduct) => {
+  dispatch({ type: "[CART] - Change cart quantity", payload: product });
+ };
+
+ const removeCartProduct = (product: ICartProduct) => {
+  dispatch({ type: "[CART] - Remove product in cart", payload: product });
+ };
 
  return (
   <CartContext.Provider
@@ -97,6 +135,8 @@ export const CartProvider: FC<Props> = ({ children }) => {
 
     // methods
     addProductToCart,
+    updateCartQuantity,
+    removeCartProduct,
    }}
   >
    {children}
